@@ -13,7 +13,17 @@ app.get('/login/', function (req, res) {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-app.get('/promise/', function (req, res) {
+app.get('/promise/:id', async function (req, res) {
+    if(req.params.id != undefined){
+        const reslt = await task(parseInt(req.params.id)).catch((reason)=>{
+            res.send(reason);
+            return;
+        });
+        res.send(reslt);
+    }
+});
+
+app.get('/promise/', function(req,res){
     res.send(task.toString());
 });
 
@@ -22,7 +32,7 @@ function task(x){
         if(x < 18){
             resolve('yes');
         } else{
-            reject();
+            reject("no");
         }
       });
 }
