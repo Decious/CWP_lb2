@@ -1,0 +1,17 @@
+{
+  "name": "kaberdin_lb2",
+  "version": "1.0.0",
+  "description": "CWB_LB2",
+  "main": "index.js",
+  "engines": {
+    "node": "16.13.0"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Kaberdin A.V.",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
