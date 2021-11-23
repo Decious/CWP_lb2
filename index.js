@@ -12,7 +12,7 @@ app.use(function(req, res, next) {
   });
 
 app.get('/login/', function (req, res) {
-    res.send('Kaberdin A.V.');
+    res.send("Kaberdin A.V.");
 });
 
 app.get('/promise/:id', async function (req, res) {
@@ -26,7 +26,17 @@ app.get('/promise/:id', async function (req, res) {
 });
 
 app.get('/fetch/', function (req, res){
-    res.sendFile(path.join(__dirname, '/index.html'));
+    fs.readFile('fetch.html', (err, data) => {
+        if (err) {
+          res.writeHead(500);
+          res.end(err);
+          return;
+        }
+    
+        data = data.toString().replace(/\{\{port\}\}/, server.address().port);
+        res.writeHead(200);
+        res.end(data, 'utf8');
+    });
 });
 
 app.get('/promise/', function(req,res){
