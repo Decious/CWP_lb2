@@ -8,17 +8,14 @@
   <button id="bt" style="width:80px; height:24px" onclick="submit()"></button>
 
   <script>
-      function submit(){
-          var inputElement = document.getElementById("inp");
-          var url = location.host+'/login';
-          fetch(location.host+'/login')
-            .then(response =>{
-                response.text().then((string)=>{
-                    inputElement.value=string;
-                })
-            })
-            .catch(err => console.log("URL:",url," error:",err))
-      }
+      const btn = document.getElementById('bt');
+      const inp = document.getElementById('inp');
+
+      const submit = async () => {
+        const req = await fetch('/login');
+        const name = await req.text();
+        inp.value = name;
+      };
   </script>
  </body>
 </html>
