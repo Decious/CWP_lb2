@@ -3,6 +3,11 @@ var http = require('http');
 var app = express();
 var path = require('path');
 
+app.use(function(req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', '*')
+    next();
+  });
+
 app.get('/login/', function (req, res) {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
