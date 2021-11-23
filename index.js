@@ -3,7 +3,7 @@ var http = require('http');
 var app = express();
 var path = require('path');
 
-app.get('/', function (req, res) {
+app.get('/login/', function (req, res) {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
