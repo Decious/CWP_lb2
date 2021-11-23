@@ -3,14 +3,16 @@ var express = require('express');
 var http = require('http');
 var app = express();
 var path = require('path');
+var fs = require('fs');
 
 app.use(function(req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', '*')
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('X-Author', 'Kaberdin A.V.');
     next();
   });
 
 app.get('/login/', function (req, res) {
-    res.sendFile(path.join(__dirname, 'index.html'));
+    res.send('Kaberdin A.V.');
 });
 
 app.get('/promise/:id', async function (req, res) {
@@ -21,6 +23,20 @@ app.get('/promise/:id', async function (req, res) {
         });
         res.send(reslt);
     }
+});
+
+app.get('/fetch/', function (req, res){
+    fs.readFile('fetch.html', (err, data) => {
+        if (err) {
+          res.writeHead(500);
+          res.end(err);
+          return;
+        }
+    
+        data = data.toString().replace(/\{\{port\}\}/, server.address().port);
+        res.writeHead(200);
+        res.end(data, 'utf8');
+    });
 });
 
 app.get('/promise/', function(req,res){
