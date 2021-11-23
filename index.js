@@ -26,17 +26,7 @@ app.get('/promise/:id', async function (req, res) {
 });
 
 app.get('/fetch/', function (req, res){
-    fs.readFile('fetch.html', (err, data) => {
-        if (err) {
-          res.writeHead(500);
-          res.end(err);
-          return;
-        }
-    
-        data = data.toString().replace(/\{\{port\}\}/, server.address().port);
-        res.writeHead(200);
-        res.end(data, 'utf8');
-    });
+    res.sendFile(path.join(__dirname, '/index.html'));
 });
 
 app.get('/promise/', function(req,res){
