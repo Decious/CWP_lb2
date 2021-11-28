@@ -63,7 +63,7 @@ app.get('/promise/', function(req,res){
 
 function task(x){
     return myPromise = new Promise((resolve, reject) => {
-        if(x < 18){
+        if(x < 13){
             resolve('yes');
         } else{
             reject("no");
