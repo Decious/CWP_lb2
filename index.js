@@ -27,7 +27,8 @@ app.get('/login/by', function (req, res) {
           return;
         }
     
-        data = data.toString().replace("<title></title>", "<title>Login by</title>");
+        data = data.toString();
+        res.setHeader("Content-Type","text/plain; charset=UTF-8")
         res.writeHead(200);
         res.end(data);
     });
