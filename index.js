@@ -15,6 +15,24 @@ app.get('/login/', function (req, res) {
     res.send("Kaberdin A.V.");
 });
 
+app.get('/login/ru', function (req, res) {
+    res.sendFile(path.join(__dirname, 'login.html'));
+});
+
+app.get('/login/by', function (req, res) {
+    fs.readFile('login.html', (err, data) => {
+        if (err) {
+          res.writeHead(500);
+          res.end(err);
+          return;
+        }
+    
+        data = data.toString().replace("<title></title>", "<title>Login by</title>");
+        res.writeHead(200);
+        res.end(data);
+    });
+});
+
 app.get('/promise/:id', async function (req, res) {
     if(req.params.id != undefined){
         const reslt = await task(parseInt(req.params.id)).catch((reason)=>{
@@ -52,6 +70,10 @@ function task(x){
         }
       });
 }
+
+app.use(function(req, res) {
+    res.sendFile(path.join(__dirname, 'error.html'));
+});
 
 var server = http.createServer(app).listen(process.env.PORT || 8005);
 
