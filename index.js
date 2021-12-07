@@ -14,6 +14,7 @@ app.use(function(req, res, next) {
 app.get('/', function(req,res){
     try{
         var data = replaceVariable("ErrorString", "Не понял - ошибка  500 (Internal Server Error)", "error.html");
+        data = replaceVariableInData(data, "backgroundColor", "blue");
         res.setHeader("Content-Type", "text/html").status(500).send(data);
     }
     catch (err){
@@ -94,6 +95,7 @@ function task(x){
 app.use(function(req, res) {
     try{
         var data = replaceVariable("ErrorString","Ужас - ошибка 404 (не найдено)","error.html");
+        data = replaceVariableInData(data, "backgroundColor", "yellow");
         res.setHeader("Content-Type", "text/html").status(404).send(data);
     }
     catch (err){
@@ -117,10 +119,15 @@ else{
 function replaceVariable(variableName, value, htmlFileName){
     var htmlContent = fs.readFileSync(htmlFileName, 'utf-8');
 
-    var regex = new RegExp("\\{\\{"+variableName+"\\}\\}"); 
-    htmlContent = htmlContent.toString().replace(regex, value);
+    htmlContent = replaceVariableInData(htmlContent, variableName, value);
     console.log(`RESULT ${htmlContent}`);
     return htmlContent;
+}
+
+function replaceVariableInData(htmlContent, variableName, value){
+    var regex = new RegExp("\\{\\{"+variableName+"\\}\\}"); 
+    var htmlContent = htmlContent.toString().replace(regex, value);
+    return htmlContent
 }
 
 function getPathToHtml(htmlFileName){
